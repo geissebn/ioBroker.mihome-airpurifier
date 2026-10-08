@@ -1,2 +1,2 @@
 // modules.d.ts
-declare module "miio"
+declare module "node-miio"

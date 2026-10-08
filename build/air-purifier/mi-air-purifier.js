@@ -44,8 +44,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MiAirPurifier = void 0;
 const events_1 = require("events");
-const miio = __importStar(require("miio"));
+const miio = __importStar(require("node-miio"));
 const mi_air_purifier_constants_1 = require("./mi-air-purifier-constants");
+if (miio.models && !miio.models["zhimi.airpurifier.mc1"]) {
+    miio.models["zhimi.airpurifier.mc1"] = miio.models["zhimi.airpurifier.ma2"];
+}
 class MiAirPurifier extends events_1.EventEmitter {
     constructor(ipAddress, token) {
         super();

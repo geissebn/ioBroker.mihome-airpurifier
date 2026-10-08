@@ -25,7 +25,13 @@
   "dependencies": {
     "@iobroker/adapter-core": "^3.4.3",
     "es6-promise": "4.2.6",
-    "miio": "https://github.com/JoJ123/miio/tarball/master"
+    "node-miio": "0.3.0-beta.2"
+  },
+  "overrides": {
+    "minimist": "^1.2.8",
+    "abstract-things": {
+      "color-string": "^1.5.5"
+    }
   },
   "devDependencies": {
     "@alcalzone/esbuild-register": "^2.5.1-1",
