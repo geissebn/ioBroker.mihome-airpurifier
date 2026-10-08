@@ -24,7 +24,7 @@ Keep each change in its own commit so a red pipeline is easy to bisect.
 - [x] **Runtime vs dev**: only `@iobroker/adapter-core`, `es6-promise` and `node-miio` ship and run on the host; everything else is build/test-only.
 - [x] **`overrides`** to clear `node-miio`'s old transitive pins: global `minimist ^1.2.8` (was `1.2.5` via `mkdirp@0.5.5`, critical) and scoped `abstract-things → color-string ^1.5.5`. Prod audit now **8** (0 critical/moderate); the rest are the ioBroker controller stack (`@iobroker/adapter-core`, `js-controller-common-db`, `node-forge`, `debug`).
 - [x] Delete dead deps (verified unused in `src/`/`test/`): `es6-promise`, `proxyquire`, `@types/proxyquire`.
-- [x] Remove the legacy gulp translate toolchain: `gulp`, `@types/gulp`, `axios`, `src/lib/tools.ts` (+ committed `build/lib/tools.js`). This deletes the `axios@0.19.2` CVE surface (dev-only via gulp translate, never executed by the adapter) and the "gulp needs `build/lib/tools` first" quirk. **Done:** `-336` packages, whole-tree audit **49 → 26**.
+- [x] Remove the legacy gulp translate toolchain: `gulp`, `@types/gulp`, `axios`, `src/lib/tools.ts` (+ committed `build/lib/tools.js`). This deletes the `axios@0.19.2` CVE surface (dev-only via gulp translate, never executed by the adapter) and the "gulp needs `build/lib/tools` first" quirk. **Done:** `-336` packages, whole-tree audit **49 → 26**. Replacing the translation workflow this removed is tracked in section 7 (i18n rework).
 - [x] Keep `@iobroker/adapter-core` current via minor/patch bumps (already at latest 3.x).
 - [ ] Leave ESLint 6 / TypeScript 5.3 pinned until they block something; upgrading is the main way to redden CI (see section 6).
 - [x] Safe bumps applied: `rimraf` 3 → 6, `source-map-support` 0.5.17 → 0.5.21. Held back because coupled/breaking/ESM: ESLint 6, `@typescript-eslint` 2.24, TypeScript 5.3, `chai` 4, `chai-as-promised` 7, `sinon-chai` 3 (and their `@types`) — see section 6.
@@ -62,7 +62,8 @@ Keep each change in its own commit so a red pipeline is easy to bisect.
 
 None of this matters while the fork runs on one install; revisit only if it is published or shared.
 
-- [ ] Meaningful state `name`/`desc` in EN+DE (currently partly empty/generic) and converting `admin/` to `adminUI`.
+- [ ] **i18n rework**: section 2 removed the gulp/axios translate toolchain, so there is no translation workflow now. Replace it with the official `@iobroker/adapter-dev` (`"translate": "translate-adapter"`) to fill `admin/i18n/<lang>/translations.json` and `io-package.json` metadata; pick a provider via env keys (Google/DeepL/Google Cloud), run it locally and commit the JSON, never in CI. When moving `admin/` to `adminUI`, use the React template's i18next setup; keep EN+DE as the required pair.
+- [ ] Meaningful state `name`/`desc` in EN+DE (currently partly empty/generic).
 - [ ] Identify duplicate attributes (e.g. `temp`/`temperature`, `humidity` vs `relative_humidity`) and consolidate them (breaking change only with a major version + news entry).
 - [ ] Repochecker/package compliance: README badges (CI, version, npm), LICENSE path.
 - [ ] Next version: mark `0.2.0` (features); aim for `1.0.0` once no breaking-change items remain; keep news in EN+DE.
