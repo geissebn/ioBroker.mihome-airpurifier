@@ -1,0 +1,9 @@
+{
+  "require": [
+    "test/mocha.setup.js",
+    "@alcalzone/esbuild-register",
+    "source-map-support/register"
+  ],
+  "watchExtensions": ["ts"],
+  "spec": ["src/**/*.test.ts"]
+}

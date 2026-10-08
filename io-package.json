@@ -98,8 +98,12 @@
             "air",
             "purifier"
         ],
-		"license": "MIT",
+		"licenseInformation": {
+			"type": "free",
+			"license": "MIT"
+		},
 		"platform": "Javascript/Node.js",
+		"tier": 3,
 		"main": "build/main.js",
         "icon": "mihome-airpurifier.png",
 		"enabled": true,
@@ -111,23 +115,6 @@
 		"compact": true,
 		"materialize": true,
 		"materializeTab": true,
-		"adminTab": {
-			"singleton": true,
-			"name": {
-				"en": "Template (TypeScript)",
-				"de": "Vorlage (TypeScript)",
-				"ru": "Шаблон (TypeScript)",
-				"pt": "Modelo (TypeScript)",
-				"nl": "Sjabloon (TypeScript)",
-				"fr": "Modèle (TypeScript)",
-				"it": "Modello (TypeScript)",
-				"es": "Plantilla (TypeScript)",
-				"pl": "Szablon (TypeScript)",
-				"zh-cn": "模板（TypeScript）"
-			},
-			"link": "",
-			"fa-icon": "info"
-		},
 		"supportCustoms": true,
 		"dependencies": [
 			{
