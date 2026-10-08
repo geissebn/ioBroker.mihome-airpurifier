@@ -1,8 +1,12 @@
 {
 	"common": {
         "name": "mihome-airpurifier",
-		"version": "0.1.8",
+		"version": "0.1.9",
 		"news": {
+            "0.1.9": {
+                "en": "Fix crash on modern js-controller (adapter-core v3), miio via https tarball",
+                "de": "Absturz-Fix für modernes js-controller (adapter-core v3), miio per https-Tarball"
+            },
             "0.1.8": {
                 "en": "Bug: npm install",
                 "de": "Fehler: npm install"
