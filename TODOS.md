@@ -23,13 +23,14 @@ Keep each change in its own commit so a red pipeline is easy to bisect.
 - [x] Baseline before touching anything: `npm audit --omit=dev` (done). Production findings went **30 → 8** by dropping `miio`; most remaining findings are transitive, dev-only noise.
 - [x] **Runtime vs dev**: only `@iobroker/adapter-core`, `es6-promise` and `node-miio` ship and run on the host; everything else is build/test-only.
 - [x] **`overrides`** to clear `node-miio`'s old transitive pins: global `minimist ^1.2.8` (was `1.2.5` via `mkdirp@0.5.5`, critical) and scoped `abstract-things → color-string ^1.5.5`. Prod audit now **8** (0 critical/moderate); the rest are the ioBroker controller stack (`@iobroker/adapter-core`, `js-controller-common-db`, `node-forge`, `debug`).
-- [ ] Delete dead deps (verified unused in `src/`/`test/`): `es6-promise`, `proxyquire`, `@types/proxyquire`.
-- [ ] Remove the legacy gulp translate toolchain: `gulp`, `@types/gulp`, `axios`, `src/lib/tools.ts` (+ committed `build/lib/tools.js`). This deletes the `axios@0.19.2` CVE surface (dev-only via gulp translate, never executed by the adapter) and the "gulp needs `build/lib/tools` first" quirk.
-- [ ] Keep `@iobroker/adapter-core` current via minor/patch bumps.
+- [x] Delete dead deps (verified unused in `src/`/`test/`): `es6-promise`, `proxyquire`, `@types/proxyquire`.
+- [x] Remove the legacy gulp translate toolchain: `gulp`, `@types/gulp`, `axios`, `src/lib/tools.ts` (+ committed `build/lib/tools.js`). This deletes the `axios@0.19.2` CVE surface (dev-only via gulp translate, never executed by the adapter) and the "gulp needs `build/lib/tools` first" quirk. **Done:** `-336` packages, whole-tree audit **49 → 26**.
+- [x] Keep `@iobroker/adapter-core` current via minor/patch bumps (already at latest 3.x).
 - [ ] Leave ESLint 6 / TypeScript 5.3 pinned until they block something; upgrading is the main way to redden CI (see section 6).
-- [ ] Add `.github/dependabot.yml` (currently missing → no alerts): grouped, weekly, target `master`; each PR must pass CI to merge.
+- [x] Safe bumps applied: `rimraf` 3 → 6, `source-map-support` 0.5.17 → 0.5.21. Held back because coupled/breaking/ESM: ESLint 6, `@typescript-eslint` 2.24, TypeScript 5.3, `chai` 4, `chai-as-promised` 7, `sinon-chai` 3 (and their `@types`) — see section 6.
+- [x] Add `.github/dependabot.yml` (was missing → no alerts): grouped, weekly, target `master`; each PR must pass CI to merge.
 - [ ] Do **not** add an `npm audit` gate to CI (transitive dev-dep findings would fail it constantly); never `npm audit fix --force` (jumps majors, breaks build/lint/tests).
-- [ ] Transitive copies (e.g. `es6-promise` under `diskusage` via `miio`/testing) can't be removed without the parent — accept them.
+- [x] Transitive copies (e.g. `es6-promise` under `diskusage` via `@iobroker/testing`) can't be removed without the parent — accepted.
 
 ## 3. Connection reliability (do only if actually observed)
 
